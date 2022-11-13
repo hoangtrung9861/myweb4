@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="angular.min.js"></script>
+    <script src="angular.route.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+        ul{
+            list-style-type: none;
+            text-align: center;
+            display: block;
+        }
+        li{
+            display: inline-block;   
+        }
+        li a{
+            text-decoration: none;
+            display: block;
+            margin-right: 30px;
+            margin-left: 30px;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+    <div >
+        <hr>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#/!">Student List</a></li>
+                <li><a href="#!b">Add New Student</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+        <hr>
+        <div ng-controller="myController" ng-view class="view"></div>
+    </div>
+    <script>
+        var app = angular.module("myApp",["ngRoute"]);
+            app.config(function($routeProvider){
+                $routeProvider
+                .when("/",{templateUrl:"student.html"})
+                .when("/b",{templateUrl:"addNewStudent.html"})
+            });
+
+            app.controller("myController",function($scope,$http){
+                $http.get("student.json").then(function(response){
+                    $scope.myData = response.data.students;
+                    $scope.student = {}
+                })
+
+                $scope.detele = function(id){
+                for (i in $scope.myData){
+                    if($scope.myData[i].id == id){
+                        $scope.myData.splice(i,1)
+                    }
+                }
+            }
+
+            $scope.add = function(){
+                var newId=$scope.student.id;
+                var newName=$scope.student.name;
+                var newMark=$scope.student.mark;
+                $scope.myData.push({
+                    id:newId,
+                    name:newName,
+                    mark:newMark
+                })
+                $scope.student = {};
+                alert("add new student successfully");
+            }
+        var students = 
+    [
+        {"id":1,"name":"Trung","mark":"60", "gender":"male"},
+        {"id":2,"name":"Tri","mark":"50", "gender":"female"},
+        {"id":3,"name":"Phuc","mark":"40", "gender":"male"},
+        {"id":4,"name":"Quan","mark":"20", "gender":"female"},
+        {"id":5,"name":"Duc","mark":"70" ,"gender":"male"}
+
+    ];
+    $scope.sortColumn = " ","name","mark","id";
+});
+    </script>
+</body>
+</html>

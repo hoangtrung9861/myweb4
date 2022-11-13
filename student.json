@@ -1,0 +1,11 @@
+{
+    "students":
+    [
+        {"id":1,"name":"Trung","mark":"60", "gender":"male"},
+        {"id":2,"name":"Tri","mark":"50", "gender":"female"},
+        {"id":3,"name":"Phuc","mark":"40", "gender":"male"},
+        {"id":4,"name":"Quan","mark":"20", "gender":"female"},
+        {"id":5,"name":"Duc","mark":"70" ,"gender":"male"}
+
+    ]
+}
